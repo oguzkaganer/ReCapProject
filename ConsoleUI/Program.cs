@@ -11,9 +11,9 @@ namespace ConsoleUI
         {
             //CarTest();
 
-            //BrandTest();
+            BrandTest();
 
-            //ColorTest();
+            ColorTest();
 
 
 
@@ -26,9 +26,9 @@ namespace ConsoleUI
 
             Color color1 = new Color() { Name = "Orange" };
 
-            colorManager.Add(color1);
+            //colorManager.Add(color1);
 
-            foreach (var color in colorManager.GetAll())
+            foreach (var color in colorManager.GetAll().Data)
             {
                 Console.WriteLine(color.Id + " - " + color.Name);
             }
@@ -40,9 +40,9 @@ namespace ConsoleUI
 
             Brand brand1 = new Brand() { Name = "Alfa Romeo" };
 
-            brandManager.Add(brand1);
+            //brandManager.Add(brand1);
 
-            foreach (var brand in brandManager.GetAll())
+            foreach (var brand in brandManager.GetAll().Data)
             {
                 Console.WriteLine(brand.Id + " - " + brand.Name);
             }
@@ -54,28 +54,32 @@ namespace ConsoleUI
 
             Car car1 = new Car() { BrandId = 1, ColorId = 1, ModelYear = 2022, DailyPrice = -100, Description = "Otomatik" };
 
-            carManager.Add(car1);
+            //Console.WriteLine(carManager.Add(car1).Message);
 
-            foreach (var car in carManager.GetAll())
+            var result = carManager.GetAll();
+
+            Console.WriteLine(result.Message);
+
+            foreach (var car in result.Data)
             {
                 Console.WriteLine(car.BrandId);
             }
 
-            foreach (var car in carManager.GetCarsByBrandId(1))
+            foreach (var car in carManager.GetCarsByBrandId(1).Data)
             {
                 Console.WriteLine(car.BrandId);
             }
 
-            foreach (var car in carManager.GetCarsByColorId(1))
+            foreach (var car in carManager.GetCarsByColorId(1).Data)
             {
                 Console.WriteLine(car.BrandId);
             }
 
             Car car2 = new Car() { Id = 1, BrandId = 1, ColorId = 1, ModelYear = 2022, DailyPrice = 650, Description = "Manuel" };
 
-            carManager.Update(car2);
+            //carManager.Update(car2);
 
-            foreach (var car in carManager.GetCarDetails())
+            foreach (var car in carManager.GetCarDetails().Data)
             {
                 Console.WriteLine(car.Id + " - " + car.BrandName + " - " + car.ColorName + " - " + car.DailyPrice);
 
