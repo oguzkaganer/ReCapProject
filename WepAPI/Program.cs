@@ -12,9 +12,16 @@ namespace WepAPI
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            #region Car
             builder.Services.AddSingleton<ICarService, CarManager>();
             builder.Services.AddSingleton<ICarDal, EfCarDal>();
-            
+            #endregion
+
+            #region Brand
+            builder.Services.AddSingleton<IBrandService, BrandManager>();
+            builder.Services.AddSingleton<IBrandDal, EfBrandDal>();
+            #endregion
+
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
