@@ -37,6 +37,11 @@ namespace WepAPI
             builder.Services.AddSingleton<ICustomerDal,EfCustomerDal>();
             #endregion
 
+            #region Rental
+            builder.Services.AddSingleton<IRentalService, RentalManager>();
+            builder.Services.AddSingleton<IRentalDal, EfRentalDal>();
+            #endregion
+
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
