@@ -26,12 +26,16 @@ namespace Business.Concrete
 
         public IResult Add(Rental rental)
         {
-
-            if (rental.ReturnDate == null)
+            foreach (var rent in _rentalDal.GetAll())
             {
-                return new ErrorResult("Bu arabayı kiralayamazsınız.");
+                if (rent.CarId==rental.CarId)
+                {
+                    if (rent.ReturnDate == null)
+                    {
+                        return new ErrorResult("Bu arabayı kiralayamazsınız.");
+                    }
+                }
             }
-
             _rentalDal.Add(rental);
             return new SuccessResult("Kiralama işlemi başarılı.");
         }
