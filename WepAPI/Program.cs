@@ -27,6 +27,11 @@ namespace WepAPI
             builder.Services.AddSingleton<IColorDal,EfColorDal>();
             #endregion
 
+            #region User
+            builder.Services.AddSingleton<IUserService, UserManager>();
+            builder.Services.AddSingleton<IUserDal, EfUserDal>();
+            #endregion
+
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
