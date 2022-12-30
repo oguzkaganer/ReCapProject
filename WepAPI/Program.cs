@@ -1,5 +1,8 @@
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using Business.Abstract;
 using Business.Concrete;
+using Business.DependencyResolvers.Autofac;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
 
@@ -11,38 +14,48 @@ namespace WepAPI
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-            #region Car
-            builder.Services.AddSingleton<ICarService, CarManager>();
-            builder.Services.AddSingleton<ICarDal, EfCarDal>();
-            #endregion
+			// Autofac Container configuration
+			builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory())
+                .ConfigureContainer<ContainerBuilder>(builder =>
+                {
+                    builder.RegisterModule(new AutofacBusinessModule());
+                });
 
-            #region Brand
-            builder.Services.AddSingleton<IBrandService, BrandManager>();
-            builder.Services.AddSingleton<IBrandDal, EfBrandDal>();
-            #endregion
 
-            #region Color
-            builder.Services.AddSingleton<IColorService, ColorManager>();
-            builder.Services.AddSingleton<IColorDal,EfColorDal>();
-            #endregion
+			// These configurations are now done in AutofacBusinessModule (Oguz)
 
-            #region User
-            builder.Services.AddSingleton<IUserService, UserManager>();
-            builder.Services.AddSingleton<IUserDal, EfUserDal>();
-            #endregion
+			// Add services to the container.
+			//#region Car
+			//builder.Services.AddSingleton<ICarService, CarManager>();
+			//builder.Services.AddSingleton<ICarDal, EfCarDal>();
+			//#endregion
 
-            #region Customer
-            builder.Services.AddSingleton<ICustomerService, CustomerManager>();
-            builder.Services.AddSingleton<ICustomerDal,EfCustomerDal>();
-            #endregion
+			//#region Brand
+			//builder.Services.AddSingleton<IBrandService, BrandManager>();
+			//builder.Services.AddSingleton<IBrandDal, EfBrandDal>();
+			//#endregion
 
-            #region Rental
-            builder.Services.AddSingleton<IRentalService, RentalManager>();
-            builder.Services.AddSingleton<IRentalDal, EfRentalDal>();
-            #endregion
+			//#region Color
+			//builder.Services.AddSingleton<IColorService, ColorManager>();
+			//builder.Services.AddSingleton<IColorDal,EfColorDal>();
+			//#endregion
 
-            builder.Services.AddControllers();
+			//#region User
+			//builder.Services.AddSingleton<IUserService, UserManager>();
+			//builder.Services.AddSingleton<IUserDal, EfUserDal>();
+			//#endregion
+
+			//#region Customer
+			//builder.Services.AddSingleton<ICustomerService, CustomerManager>();
+			//builder.Services.AddSingleton<ICustomerDal,EfCustomerDal>();
+			//#endregion
+
+			//#region Rental
+			//builder.Services.AddSingleton<IRentalService, RentalManager>();
+			//builder.Services.AddSingleton<IRentalDal, EfRentalDal>();
+			//#endregion
+
+			builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
