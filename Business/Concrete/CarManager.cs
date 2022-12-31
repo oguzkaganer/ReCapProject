@@ -2,7 +2,7 @@
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.CrossCuttingConcerns.Validation.FluentValidation;
-using Core.Utilities;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Business.Concrete
 {
-	public class CarManager : ICarService
+    public class CarManager : ICarService
 	{
 		ICarDal _carDal;
 
