@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation.FluentValidation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
@@ -14,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Business.Concrete
 {
-    public class CarManager : ICarService
+	public class CarManager : ICarService
 	{
 		ICarDal _carDal;
 
@@ -43,9 +44,10 @@ namespace Business.Concrete
 			return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.ColorId == id));
 		}
 
+		[ValidationAspect(typeof(CarValidator))]
 		public IResult Add(Car car)
 		{
-			ValidationTool.Validate(new CarValidator(),car);
+			//ValidationTool.Validate(new CarValidator(),car);
 
 			_carDal.Add(car);
 			return new SuccessResult(Messages.CarAdded);
